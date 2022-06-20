@@ -1,10 +1,8 @@
 package com.fdmgroup.CurrencyConverter;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,9 +23,8 @@ public class TransactionProcessor {
 	private File txtFile = new File ("resources/transactions.txt");
 	private File userJson = new File("resources/users.json");
 	
-	public TransactionProcessor(File txtFile, Users[] userInput ) {
-		super();
-		this.userInput = userInput;
+	public TransactionProcessor(File txtFile, Users[] userInput ) throws StreamReadException, DatabindException, IOException {
+		this.userInput = usersInput(userJson);
 		this.txtFile = txtFile;
 		this.userList = new HashMap<String, Users>();
 	}
@@ -90,16 +87,14 @@ public class TransactionProcessor {
 	}
 	
 	public void usersMap() throws IOException {
-		userInput = usersInput(userJson);
 		for(int i = 0; i < userInput.length; i++) {
 			userList.put(userInput[i].getName(), userInput[i]);
 		}
-		System.out.println("usersMap: "+userInput[0].toString());
-		System.out.println("test for userList"+userList.get(name).getName());
+		System.out.println("usermap: "+name);
 	}
 
 	// update users input
-	public void updateUsers() throws IOException {
+	public void updateUsers(File txtFile) throws IOException {
 		String[] strArray = readTransactions(txtFile);
 		for(int i = 0; i < strArray.length; i++) {
 			String users = strArray[i];
@@ -110,27 +105,20 @@ public class TransactionProcessor {
 			this.amount=Double.valueOf(usersArray[3]);
 		}		
 		usersMap();
-		System.out.println("test for userList1111"+userList.get(name).getName());
+		System.out.println("updatedUsers, userList"+userList);
 	}
 	
 	// executeConversion from transactions.txt
 	public double executeConversion(String[] name) throws StreamReadException, DatabindException, IOException {
-		String[] transactions = readTransactions(txtFile);
-		String[] strArray = null;
+			updateUsers(txtFile);
+			double convertAmount = 0;
+			Converter converter1 = new Converter(fromCurrency, toCurrency, amount);
+			convertAmount = converter1.converterAmount();
 		
-		double convertAmount = 0;
-		for (int i = 0; i < transactions.length; i++) {
-			String str = transactions[i].toString();
-			strArray = str.split(" ");
-			Converter converter = new Converter(strArray[1],strArray[2],Double.valueOf(strArray[3]));
-			convertAmount = converter.converterAmount();
-
-			 if (strArray[0].equals("bob")){
-				 
-			 }
-		}
 		return convertAmount;
 	}
+	
+	
 	
 
 	public List<Users> getUpadtedUsers() throws IOException {
@@ -138,7 +126,7 @@ public class TransactionProcessor {
 		
 		List<Users> updatedList = new ArrayList<>();
 //		System.out.print(userList.get(name).getWallet());
-		
+		System.out.println("test for userList1111"+userList.get(name).getName());
 		return updatedList;
 	}
 

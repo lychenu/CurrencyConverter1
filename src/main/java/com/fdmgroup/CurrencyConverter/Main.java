@@ -43,19 +43,14 @@ public class Main {
 			System.out.println(theUsers.getName() + theUsers.getWallet() +  "\n");
 		}
 				
-		String[] test = new String[] {};
 		
 		// transactions read
 		File textFile = new File("resources/transactions.txt");
 		TransactionProcessor tp = new TransactionProcessor(textFile, users);
-		tp.readTransactions(textFile);
-//		tp.executeConversion(test);
 
 
-		// test for update users
-		tp.updateUsers();
+		tp.updateUsers(textFile);
 		
-
 		// update to updatedUsers.json file
 		File updatedUsers = new File("resources/updatedUsers.json");
 		updateUsersJSONFile(updatedUsers, tp.getUpadtedUsers());
