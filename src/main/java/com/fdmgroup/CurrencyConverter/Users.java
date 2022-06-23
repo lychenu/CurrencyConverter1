@@ -32,6 +32,12 @@ public class Users {
 	public void setWallet(Map<String, Double> wallet) {
 		this.wallet = wallet;
 	}
+
+	@Override
+	public String toString() {
+		return "Users [name=" + name + ", wallet=" + wallet + "]";
+	}
+	
 	
 	
 }

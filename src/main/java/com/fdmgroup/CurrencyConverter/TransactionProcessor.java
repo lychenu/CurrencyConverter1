@@ -25,10 +25,19 @@ public class TransactionProcessor {
 	private File txtFile = new File("resources/transactions.txt");
 	private File userJson = new File("resources/users.json");
 
+	//original
+//	public TransactionProcessor(File txtFile, Users[] userInput) throws StreamReadException, DatabindException, IOException {
+//		this.userInput = usersInput(userJson);
+//		this.txtFile = txtFile;
+//		this.userList = new HashMap<String, Users>();
+//	}
+	
+	//alternative
 	public TransactionProcessor(File txtFile, Users[] userInput) throws StreamReadException, DatabindException, IOException {
 		this.userInput = usersInput(userJson);
 		this.txtFile = txtFile;
 		this.userList = new HashMap<String, Users>();
+		System.out.println("Printing alternative\n" + Arrays.toString(this.userInput) + "\n" + txtFile.toString());
 	}
 
 	public String getName() {
@@ -85,6 +94,8 @@ public class TransactionProcessor {
 		ObjectMapper mapper = new ObjectMapper();
 		Users[] users = null;
 		users = mapper.readValue(userJson, Users[].class);
+		System.out.println("test user array");
+		System.out.println(Arrays.toString(users));
 		return users;
 	}
 
@@ -97,8 +108,6 @@ public class TransactionProcessor {
 	// update users input
 	public void updateUsers(File txtFile) throws IOException {
 		String[] strArray = readTransactions(txtFile);
-		System.out.println("printing array");
-		System.out.println(Arrays.toString(strArray));
 		for (int i = 0; i < strArray.length; i++) {
 			String users = strArray[i];
 			String[] usersArray = users.split(" ");

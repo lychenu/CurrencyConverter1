@@ -47,10 +47,13 @@ public class Main {
 		// transactions read
 		File textFile = new File("resources/transactions.txt");
 		TransactionProcessor tp = new TransactionProcessor(textFile, users);
-		tp.updateUsers(textFile);
+//		tp.updateUsers(textFile);
+//
+//		tp.executeTransactions();
+//		
+		String[] str = new String[] {"Bob", "cad" ,"usd", "100"};
+		tp.executeConversion(str);
 
-		tp.executeTransactions();
-		
 		
 		// update to updatedUsers.json file
 		File updatedUsers = new File("resources/updatedUsers.json");

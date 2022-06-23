@@ -70,6 +70,8 @@ public class Converter {
 		if(fromCurrency.equals("cad")) {
 			converted = amount * converter.getRate(toCurrency, "rate");
 			
+			System.out.println("rate \n"+converter.getRate("eur", "rate"));
+			
 		}else if(fromCurrency.equals(toCurrency)) {
 			;
 		}
