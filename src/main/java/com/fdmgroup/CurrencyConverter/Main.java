@@ -47,9 +47,10 @@ public class Main {
 		// transactions read
 		File textFile = new File("resources/transactions.txt");
 		TransactionProcessor tp = new TransactionProcessor(textFile, users);
-
-
 		tp.updateUsers(textFile);
+
+		tp.executeTransactions();
+		
 		
 		// update to updatedUsers.json file
 		File updatedUsers = new File("resources/updatedUsers.json");
